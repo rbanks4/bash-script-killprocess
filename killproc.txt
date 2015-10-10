@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Welcome to killproc!"
+echo "You've selected procees named: $1"
+ps | while read line; do
+	name=$(echo $line | cut -d ' ' -f4)
+	id=$(echo $line | cut -d' ' -f1)
+
+	if [[ $name == $1 ]]; then
+		echo "Kill the process? (Yes/No)"
+		read answer < /dev/tty
+		if [ ${answer} == "yes" ]; then
+			kill $id
+			echo "You just killed process $id"
+		fi
+	fi
+done
